@@ -18,6 +18,12 @@ class TriviaTestCase(unittest.TestCase):
         self.database_path = "postgres://{}/{}".format('localhost:5432', self.database_name)
         setup_db(self.app, self.database_path)
 
+        # self.new_book = {
+        #     'title': 'Anansi Boys',
+        #     'author': 'Neil Gaiman',
+        #     'rating': 5
+        # }
+
         # binds the app to the current context
         with self.app.app_context():
             self.db = SQLAlchemy()
@@ -28,6 +34,29 @@ class TriviaTestCase(unittest.TestCase):
     def tearDown(self):
         """Executed after reach test"""
         pass
+
+    def test_get_categories(self):
+        """Test retrieving all categories"""
+        res = self.client().get('/categories')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(len(data["categories"]))
+
+    def test_get_paginated_questions(self):
+        """Test retrieving paginated questions"""
+        res = self.client().get('/questions?page=1')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(len(data["questions"]))
+        self.assertTrue(data["totalQuestions"])
+        self.assertTrue(len(data["categories"]))
+
+    def test_404_sent_requesting_beyond_valid_page(self):
+        """Test if receive 404 when requesting beyond valid page"""
+        res = self.client().get('/questions?page=1000000')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 404)
+        self.assertTrue(data["message"],'resource not found')
 
     """
     TODO

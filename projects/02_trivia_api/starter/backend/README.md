@@ -394,7 +394,7 @@ Can serve 2 purposes:
   "success": true
 }
 ```
-To request a next question of any category, specify "id": 0 and type: "click" in quiz_category
+To request a next question of any category, specify "id": 0 and "type": "click" in quiz_category
 
 ## Testing
 To run the tests, run

@@ -119,7 +119,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data["total_questions"], 1)
         self.assertTrue(len(data["questions"]))
         self.assertTrue(len(data["categories"]))
-        self.assertTrue(len(data["current_category"]))
+        self.assertEqual(data["current_category"], [4])
 
     def test_get_question_search_without_results(self):
         res = self.client().post('/questions', json={'searchTerm': 'dhsjd'})
@@ -180,11 +180,11 @@ class TriviaTestCase(unittest.TestCase):
             22,
             23,
             24]
-        res = self.client().post('/quizzes', json={'quiz_category':
-                                                   {'type': 'click', 'id': 0},
-                                                   'previous_questions':
-                                                       question_ids_expect_9
-                                                   })
+        res = self.client().post('/quizzes', json={'quiz_category': {
+            'type': 'click',
+            'id': 0},
+            'previous_questions':
+            question_ids_expect_9})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data["success"], True)

@@ -118,14 +118,15 @@ def create_app(test_config=None):
 
         try:
             if search_term:
-                questions = Question.query.filter(
-                    Question.question.ilike(f'%{search_term}%')).order_by(
+                question_query = Question.query.filter(
+                    Question.question.ilike(f'%{search_term}%'))
+                questions = question_query.order_by(
                     Question.id).all()
 
                 current_questions = paginate_questions(request, questions)
                 current_category = [
                     category.format()["category"]
-                    for category in Question.query.order_by(
+                    for category in question_query.order_by(
                         Question.category).distinct(
                         Question.category)]
                 categories = Category.query.order_by(Category.id).all()

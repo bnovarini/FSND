@@ -383,12 +383,7 @@ Can serve 2 purposes:
        "Sports"
      ], 
      "current_category": [
-       0, 
-       1, 
-       2, 
-       3, 
-       4, 
-       5
+       4
      ], 
      "questions": [
        {

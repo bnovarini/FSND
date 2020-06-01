@@ -54,6 +54,11 @@ def create_app(test_config=None):
     @app.route('/questions')
     def get_questions():
         questions = Question.query.order_by(Question.id).all()
+        current_category = [
+            category.format()["category"]
+            for category in Question.query.order_by(
+                Question.category).distinct(
+                Question.category)]
         current_questions = paginate_questions(request, questions)
 
         if len(current_questions) == 0:
@@ -65,7 +70,7 @@ def create_app(test_config=None):
             "success": True,
             'questions': current_questions,
             'total_questions': len(questions),
-            'current_category': None,
+            'current_category': current_category,
             'categories': [category.format()['type']
                            for category in categories]
         })
@@ -82,13 +87,18 @@ def create_app(test_config=None):
             question.delete()
             selection = Question.query.order_by(Question.id).all()
             current_questions = paginate_questions(request, selection)
+            current_category = [
+                category.format()["category"]
+                for category in Question.query.order_by(
+                    Question.category).distinct(
+                    Question.category)]
             categories = Category.query.order_by(Category.id).all()
 
             return jsonify({
                 "success": True,
                 'questions': current_questions,
                 'total_questions': len(selection),
-                'current_category': None,
+                'current_category': current_category,
                 'categories': [category.format()['type']
                                for category in categories]
             })
@@ -113,6 +123,11 @@ def create_app(test_config=None):
                     Question.id).all()
 
                 current_questions = paginate_questions(request, questions)
+                current_category = [
+                    category.format()["category"]
+                    for category in Question.query.order_by(
+                        Question.category).distinct(
+                        Question.category)]
                 categories = Category.query.order_by(Category.id).all()
 
                 return jsonify({
@@ -121,7 +136,7 @@ def create_app(test_config=None):
                     # assuming in this case we care about total questions for
                     # that search
                     'total_questions': len(questions),
-                    'current_category': None,
+                    'current_category': current_category,
                     'categories': [category.format()['type']
                                    for category in categories]
                 })
@@ -137,13 +152,18 @@ def create_app(test_config=None):
 
                 questions = Question.query.order_by(Question.id).all()
                 current_questions = paginate_questions(request, questions)
+                current_category = [
+                    category.format()["category"]
+                    for category in Question.query.order_by(
+                        Question.category).distinct(
+                        Question.category)]
                 categories = Category.query.order_by(Category.id).all()
 
                 return jsonify({
                     "success": True,
                     'questions': current_questions,
                     'total_questions': len(questions),
-                    'current_category': None,
+                    'current_category': current_category,
                     'categories': [category.format()['type']
                                    for category in categories]
                 })
@@ -156,7 +176,7 @@ def create_app(test_config=None):
         cat_id = category_id + 1
         questions = Question.query.filter(
             Question.category == cat_id
-            ).order_by(
+        ).order_by(
             Question.id).all()
         current_questions = paginate_questions(request, questions)
         categories = Category.query.order_by(Category.id).all()
@@ -165,7 +185,7 @@ def create_app(test_config=None):
             "success": True,
             'questions': current_questions,
             'total_questions': len(questions),
-            'current_category': category_id,
+            'current_category': [category_id],
             'categories': [category.format()['type']
                            for category in categories]
         })
@@ -184,7 +204,7 @@ def create_app(test_config=None):
         else:
             category_questions = Question.query.filter(
                 Question.category == cat_id
-                ).order_by(
+            ).order_by(
                 func.random())
 
         previous_question_ids = [q for q in previous_questions]

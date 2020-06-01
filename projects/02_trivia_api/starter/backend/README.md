@@ -110,7 +110,7 @@ The API will return three error types when requests fail:
 ``` 
 
 #### GET /questions
-- Fetches a list of question objects, success value, total number of questions, the current category, and a list of all category names
+- Fetches a list of question objects, success value, total number of questions, a list of current categories, and a list of all category names
 - Results are paginated in groups of 10. Include a request argument to choose page number, starting from 1
 - Sample request: `curl http://127.0.0.1:5000/questions?page=2`
 - Sample response:
@@ -124,80 +124,94 @@ The API will return three error types when requests fail:
     "Entertainment", 
     "Sports"
   ], 
-  "currentCategory": null, 
+  "current_category": [
+    0, 
+    1, 
+    2, 
+    3, 
+    4, 
+    5
+  ], 
   "questions": [
     {
-      "answer": "Escher", 
-      "category": 2, 
-      "difficulty": 1, 
-      "id": 16, 
-      "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
-    }, 
-    {
       "answer": "Mona Lisa", 
-      "category": 2, 
+      "category": 1, 
       "difficulty": 3, 
       "id": 17, 
       "question": "La Giaconda is better known as what?"
     }, 
     {
       "answer": "One", 
-      "category": 2, 
+      "category": 1, 
       "difficulty": 4, 
       "id": 18, 
       "question": "How many paintings did Van Gogh sell in his lifetime?"
     }, 
     {
       "answer": "Jackson Pollock", 
-      "category": 2, 
+      "category": 1, 
       "difficulty": 2, 
       "id": 19, 
       "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
     }, 
     {
       "answer": "The Liver", 
-      "category": 1, 
+      "category": 0, 
       "difficulty": 4, 
       "id": 20, 
       "question": "What is the heaviest organ in the human body?"
     }, 
     {
       "answer": "Alexander Fleming", 
-      "category": 1, 
+      "category": 0, 
       "difficulty": 3, 
       "id": 21, 
       "question": "Who discovered penicillin?"
     }, 
     {
       "answer": "Blood", 
-      "category": 1, 
+      "category": 0, 
       "difficulty": 4, 
       "id": 22, 
       "question": "Hematology is a branch of medicine involving the study of what?"
     }, 
     {
       "answer": "Scarab", 
-      "category": 4, 
+      "category": 3, 
       "difficulty": 4, 
       "id": 23, 
       "question": "Which dung beetle was worshipped by the ancient Egyptians?"
     }, 
     {
       "answer": "Yes it is", 
-      "category": 4, 
+      "category": 3, 
       "difficulty": 2, 
       "id": 24, 
       "question": "This is a test"
+    }, 
+    {
+      "answer": "Yes it is", 
+      "category": 1, 
+      "difficulty": 3, 
+      "id": 25, 
+      "question": "Is this a test question?"
+    }, 
+    {
+      "answer": "Yes it is", 
+      "category": 1, 
+      "difficulty": 3, 
+      "id": 26, 
+      "question": "Is this a test question?"
     }
   ], 
   "success": true, 
-  "totalQuestions": 19
+  "total_questions": 34
 }
 ```
 
 #### DELETE /questions/{question_id}
 - Deletes the question of the given id if it exists
-- Returns success value, total questions, a question list based on current page number, current category and a list of categories.
+- Returns success value, total questions, a question list based on current page number, a list of current categories and a list of categories.
 - Sample request: `curl -X DELETE http://127.0.0.1:5000/questions/10?page=2`
 - Sample response:
 ```
@@ -210,75 +224,96 @@ The API will return three error types when requests fail:
     "Entertainment", 
     "Sports"
   ], 
-  "currentCategory": null, 
+  "current_category": [
+    0, 
+    1, 
+    2, 
+    3, 
+    4, 
+    5
+  ], 
   "questions": [
     {
-      "answer": "Mona Lisa", 
-      "category": 2, 
-      "difficulty": 3, 
-      "id": 17, 
-      "question": "La Giaconda is better known as what?"
-    }, 
-    {
       "answer": "One", 
-      "category": 2, 
+      "category": 1, 
       "difficulty": 4, 
       "id": 18, 
       "question": "How many paintings did Van Gogh sell in his lifetime?"
     }, 
     {
       "answer": "Jackson Pollock", 
-      "category": 2, 
+      "category": 1, 
       "difficulty": 2, 
       "id": 19, 
       "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
     }, 
     {
       "answer": "The Liver", 
-      "category": 1, 
+      "category": 0, 
       "difficulty": 4, 
       "id": 20, 
       "question": "What is the heaviest organ in the human body?"
     }, 
     {
       "answer": "Alexander Fleming", 
-      "category": 1, 
+      "category": 0, 
       "difficulty": 3, 
       "id": 21, 
       "question": "Who discovered penicillin?"
     }, 
     {
       "answer": "Blood", 
-      "category": 1, 
+      "category": 0, 
       "difficulty": 4, 
       "id": 22, 
       "question": "Hematology is a branch of medicine involving the study of what?"
     }, 
     {
       "answer": "Scarab", 
-      "category": 4, 
+      "category": 3, 
       "difficulty": 4, 
       "id": 23, 
       "question": "Which dung beetle was worshipped by the ancient Egyptians?"
     }, 
     {
       "answer": "Yes it is", 
-      "category": 4, 
+      "category": 3, 
       "difficulty": 2, 
       "id": 24, 
       "question": "This is a test"
+    }, 
+    {
+      "answer": "Yes it is", 
+      "category": 1, 
+      "difficulty": 3, 
+      "id": 25, 
+      "question": "Is this a test question?"
+    }, 
+    {
+      "answer": "Yes it is", 
+      "category": 1, 
+      "difficulty": 3, 
+      "id": 26, 
+      "question": "Is this a test question?"
+    }, 
+    {
+      "answer": "Yes it is", 
+      "category": 1, 
+      "difficulty": 3, 
+      "id": 27, 
+      "question": "Is this a test question?"
     }
   ], 
   "success": true, 
-  "totalQuestions": 18
+  "total_questions": 33
 }
 ```
 
 #### POST /questions
 Can serve 2 purposes:
 1. Creates a new question using the submitted question, category, answer and difficulty if in payload of request.
-    1. Returns success value, total questions, a question list based on current page number, current category and a list of categories.
-    2. Sample request: `curl -X POST  http://127.0.0.1:5000/questions?page=3 -H "Content-Type: application/json" -d '{"question": "Is this a test question?", "answer": "Yes it is", "category": 2, "difficulty": 3}'`
+    1. Returns success value, total questions, a question list based on current page number, a list of current categories and a list of categories.
+    2. Sample request: `curl -X POST  http://127.0.0.1:5000/questions?page=4 -H "Content-Type: application/json" -d '{"question": "Is this a test question?", "answer": "Yes it is", "category": 2, "difficulty": 3}'`
     3. Sample response:
     ```
     {
@@ -290,23 +325,51 @@ Can serve 2 purposes:
         "Entertainment", 
         "Sports"
       ], 
-      "currentCategory": null, 
+      "current_category": [
+        0, 
+        1, 
+        2, 
+        3, 
+        4, 
+        5
+      ], 
       "questions": [
+        {
+          "answer": "Hist", 
+          "category": 3, 
+          "difficulty": 5, 
+          "id": 38, 
+          "question": "History question"
+        }, 
+        {
+          "answer": "Ent", 
+          "category": 4, 
+          "difficulty": 4, 
+          "id": 39, 
+          "question": "Entertainmnt question"
+        }, 
+        {
+          "answer": "Sport", 
+          "category": 5, 
+          "difficulty": 2, 
+          "id": 40, 
+          "question": "Sports question"
+        }, 
         {
           "answer": "Yes it is", 
           "category": 2, 
           "difficulty": 3, 
-          "id": 27, 
+          "id": 41, 
           "question": "Is this a test question?"
         }
       ], 
       "success": true, 
-      "totalQuestions": 21
+      "total_questions": 34
     }
    ```
 2. Searches questions that have a certain search term in them if searchTerm is in payload
     1. Search is case insensitive
-    2. Returns success value, total questions that have the search term, a list of quetions with the search term based on current page number, current category and a list of categories.
+    2. Returns success value, total questions that have the search term, a list of quetions with the search term based on current page number, a list of current categories and a list of categories.
     3. Sample request: `curl -X POST  http://127.0.0.1:5000/questions?page=1 -H "Content-Type: application/json" -d '{"searchTerm": "anne"}'`
     4. Sample response:
     ```
@@ -319,23 +382,30 @@ Can serve 2 purposes:
        "Entertainment", 
        "Sports"
      ], 
-     "currentCategory": null, 
+     "current_category": [
+       0, 
+       1, 
+       2, 
+       3, 
+       4, 
+       5
+     ], 
      "questions": [
        {
          "answer": "Tom Cruise", 
-         "category": 5, 
+         "category": 4, 
          "difficulty": 4, 
          "id": 4, 
          "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
        }
      ], 
      "success": true, 
-     "totalQuestions": 1
+     "total_questions": 1
    }
    ``` 
 
 #### GET /categories/{category_id}/questions
-- Fetches a list of question objects, success value, total number of questions, the current category, and a list of all category names, for questions in a specific category
+- Fetches a list of question objects, success value, total number of questions, a list of current categories, and a list of all category names, for questions in a specific category
 - Results are paginated in groups of 10. Include a request argument to choose page number, starting from 1
 - Sample request: `curl http://127.0.0.1:5000/categories/2/questions?page=1`
 - Sample response:
@@ -349,47 +419,77 @@ Can serve 2 purposes:
     "Entertainment", 
     "Sports"
   ], 
-  "currentCategory": 3, 
+  "current_category": [
+    2
+  ], 
   "questions": [
     {
       "answer": "Lake Victoria", 
-      "category": 3, 
+      "category": 2, 
       "difficulty": 2, 
       "id": 13, 
       "question": "What is the largest lake in Africa?"
     }, 
     {
       "answer": "The Palace of Versailles", 
-      "category": 3, 
+      "category": 2, 
       "difficulty": 3, 
       "id": 14, 
       "question": "In which royal palace would you find the Hall of Mirrors?"
     }, 
     {
       "answer": "Agra", 
-      "category": 3, 
+      "category": 2, 
       "difficulty": 2, 
       "id": 15, 
       "question": "The Taj Mahal is located in which Indian city?"
+    }, 
+    {
+      "answer": "aaaa", 
+      "category": 2, 
+      "difficulty": 2, 
+      "id": 28, 
+      "question": "This is a test"
+    }, 
+    {
+      "answer": "hhhh", 
+      "category": 2, 
+      "difficulty": 4, 
+      "id": 29, 
+      "question": "History question"
+    }, 
+    {
+      "answer": "Geo", 
+      "category": 2, 
+      "difficulty": 3, 
+      "id": 37, 
+      "question": "Geography question"
+    }, 
+    {
+      "answer": "Yes it is", 
+      "category": 2, 
+      "difficulty": 3, 
+      "id": 41, 
+      "question": "Is this a test question?"
     }
   ], 
   "success": true, 
-  "totalQuestions": 3
+  "total_questions": 7
 }
 ```
 
 #### POST /quizzes
 - Returns a random question and success value from a specific category that isn't in a list of previous question ids
-- Sample request: `curl -X POST http://127.0.0.1:5000/quizzes -H "Content-Type: application/json" -d '{"quiz_category": {"type": "Geography", "id":2}, "previous_questions": [13,14]}'`
+- Sample request: `curl -X POST http://127.0.0.1:5000/quizzes -H "Content-Type: application/json" -d '{"quiz_category": {"type": "Science", "id":0}, "previous_questions": [35,21]}'`
 - Sample response:
 ```
 {
   "question": {
-    "answer": "Agra", 
-    "category": 3, 
-    "difficulty": 2, 
-    "id": 15, 
-    "question": "The Taj Mahal is located in which Indian city?"
+    "answer": "The Liver", 
+    "category": 0, 
+    "difficulty": 4, 
+    "id": 20, 
+    "question": "What is the heaviest organ in the human body?"
   }, 
   "success": true
 }

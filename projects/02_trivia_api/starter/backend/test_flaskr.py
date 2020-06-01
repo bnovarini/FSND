@@ -54,6 +54,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(len(data["questions"]))
         self.assertTrue(data["total_questions"])
         self.assertTrue(len(data["categories"]))
+        self.assertTrue(len(data["current_category"]))
 
     def test_404_sent_requesting_beyond_valid_page(self):
         """Test if receive 404 when requesting beyond valid page"""
@@ -74,6 +75,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(len(data["questions"]))
         self.assertTrue(data["total_questions"])
         self.assertTrue(len(data["categories"]))
+        self.assertTrue(len(data["current_category"]))
         self.assertEqual(question, None)
 
     def test_422_if_question_does_not_exist(self):
@@ -96,6 +98,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data["total_questions"], questions_before + 1)
         self.assertTrue(len(data["questions"]))
         self.assertTrue(len(data["categories"]))
+        self.assertTrue(len(data["current_category"]))
 
     def test_405_if_question_creation_not_allowed(self):
         """Test creating a new question with wrong endpoint"""
@@ -116,6 +119,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data["total_questions"], 1)
         self.assertTrue(len(data["questions"]))
         self.assertTrue(len(data["categories"]))
+        self.assertTrue(len(data["current_category"]))
 
     def test_get_question_search_without_results(self):
         res = self.client().post('/questions', json={'searchTerm': 'dhsjd'})
@@ -126,6 +130,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['total_questions'], 0)
         self.assertEqual(len(data['questions']), 0)
         self.assertTrue(len(data["categories"]))
+        self.assertTrue(len(data["current_category"]))
 
     def test_get_paginated_questions_in_category(self):
         """Test retrieving paginated questions inside a category"""
@@ -136,7 +141,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['total_questions'], 3)
         self.assertEqual(len(data['questions']), 3)
         self.assertTrue(len(data["categories"]))
-        self.assertEqual(data["current_category"], 0)
+        self.assertEqual(data["current_category"], [0])
 
     def test_get_next_quiz_question_category(self):
         """Test getting next random question for specific category in quiz"""
@@ -144,13 +149,14 @@ class TriviaTestCase(unittest.TestCase):
             '/quizzes',
             json={
                 'quiz_category': {
-                    'type': 'Geography',
-                    'id': 2},
-                'previous_questions': [14]})
+                    'type': 'Science',
+                    'id': 0},
+                'previous_questions': [22, 21]})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data["success"], True)
-        self.assertNotEqual(data['question']['id'], 14)
+        self.assertNotEqual(data['question']['id'], 22)
+        self.assertNotEqual(data['question']['id'], 21)
 
     def test_get_next_quiz_question_all_categories(self):
         """Test retrieving next random question for all categories in quiz"""

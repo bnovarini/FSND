@@ -312,7 +312,7 @@
 							"script": {
 								"id": "5241acce-a5e1-4d32-a957-c7bb9868bacd",
 								"exec": [
-									"pm.test(\"Status code is 401\", function () {",
+									"pm.test(\"Status code is 403\", function () {",
 									"    pm.response.to.have.status(403);",
 									"});"
 								],
@@ -354,7 +354,7 @@
 							"script": {
 								"id": "2fad8af0-fdc3-41c4-9890-d4ff073e1044",
 								"exec": [
-									"pm.test(\"Status code is 401\", function () {",
+									"pm.test(\"Status code is 403\", function () {",
 									"    pm.response.to.have.status(403);",
 									"});"
 								],

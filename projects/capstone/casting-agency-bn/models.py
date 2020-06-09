@@ -1,6 +1,7 @@
 import os
 from flask_sqlalchemy import SQLAlchemy
 import json
+from flask_migrate import Migrate
 
 database_name = "castingagency"
 database_path = "postgres://{}/{}".format('localhost:5432', database_name)
@@ -18,6 +19,7 @@ def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
+    migrate = Migrate(app, db)
     db.create_all()
 
 # Aux function for changing boolean gender to female/male

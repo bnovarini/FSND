@@ -7,6 +7,7 @@ import json
 
 from models import setup_db, Movie, Actor
 
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
@@ -266,7 +267,6 @@ def create_app(test_config=None):
             'message': 'unprocessable'
         }), 422
 
-
     @app.errorhandler(404)
     def resource_not_found(error):
         return jsonify({
@@ -283,7 +283,6 @@ def create_app(test_config=None):
             'message': 'internal server error'
         }), 500
 
-
     @app.errorhandler(AuthError)
     def auth_error(e):
         return jsonify({
@@ -294,7 +293,8 @@ def create_app(test_config=None):
 
     return app
 
-APP = create_app()
+
+app = create_app()
 
 if __name__ == '__main__':
-    APP.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
